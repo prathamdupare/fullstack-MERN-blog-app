@@ -1,17 +1,42 @@
-export default function Post() {
+import { formatISO9075 } from "date-fns";
+import { Link } from "react-router-dom";
+export default function Post({
+  _id,
+  title,
+  summary,
+  cover,
+  content,
+  createdAt,
+  author,
+}) {
   return (
-    <div className="entry flex p-2 border rounded-[10px] m-1 hover:bg-gray-100">
-      <img src="https://picsum.photos/200/" alt="ds" />
-      <div className="p-2">
-        <h2 className="font-bold">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
-          laboriosam debitis, itaque laudantium sunt consectetur iusto quam
-        </h2>
-        <p className="text-sm text-gray-500">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio
-          optio, error illo dolores obcaecati laboriosam a sed tempore tenetur
-          veniam illum atque sequi saepe nostrum dicta ab neque odit ipsa.
-        </p>
+    <div className="entry flex p-4 border rounded-lg m-2 hover:bg-gray-100">
+      <div className="w-1/3 mr-4">
+        <Link to={`post/${_id}`}>
+          <img
+            className="w-full h-auto object-cover rounded-lg"
+            src={"http://localhost:4000/" + cover}
+            alt="Post cover"
+          />
+        </Link>
+      </div>
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <Link
+            to={`post/${_id}`}
+            className="font-semibold text-lg text-blue-600 hover:underline"
+          >
+            {title}
+          </Link>
+          <p className="text-sm text-gray-500 mt-1">{summary}</p>
+        </div>
+        <div className="flex items-center mt-2">
+          <p className="text-sm text-gray-600">{author.username}</p>
+          <span className="mx-2 text-gray-400">•</span>
+          <time className="text-sm text-gray-600">
+            {formatISO9075(new Date(createdAt))}
+          </time>
+        </div>
       </div>
     </div>
   );

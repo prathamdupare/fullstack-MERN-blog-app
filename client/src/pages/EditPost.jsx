@@ -1,12 +1,10 @@
+import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
-
+import "react-quill/dist/quill.snow.css"; // Import Quill styles'
 import Editor from "../Editor";
 
-import { Navigate } from "react-router-dom";
-
-export default function CreatePost() {
+export default function EditPost() {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
@@ -14,24 +12,8 @@ export default function CreatePost() {
 
   const [redirect, setRedirect] = useState(false);
 
-  async function createNewPost(e) {
-    const data = new FormData();
-
-    data.set("title", title);
-    data.set("summary", summary);
-    data.set("content", content);
-    data.set("file", files[0]);
-
+  function updatePost(e) {
     e.preventDefault();
-
-    const response = await fetch("http://localhost:4000/post", {
-      method: "POST",
-      body: data,
-      credentials: "include",
-    });
-    if (response.ok) {
-      setRedirect(true);
-    }
   }
 
   if (redirect) {
@@ -40,7 +22,7 @@ export default function CreatePost() {
   return (
     <div className="min-h-screen flex  justify-center">
       <form
-        onSubmit={createNewPost}
+        onSubmit={updatePost}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2"
       >
         <div className="mb-4">
