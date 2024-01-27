@@ -1,66 +1,65 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { formatISO9075 } from "date-fns";
+import { UserContext } from "../userContext";
+import { Link } from "react-router-dom";
 
 export default function PostPage() {
   const [postInfo, setPostInfo] = useState(null);
+  const { userInfo } = useContext(UserContext);
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchPostInfo = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/posts/${id}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch post with id ${id}`);
-        }
+    fetch(`http://localhost:4000/post/${id}`)
+      .then((response) => response.json())
+      .then((postInfo) => setPostInfo(postInfo));
+  }, []);
 
-        const postData = await response.json();
-        setPostInfo(postData);
-      } catch (error) {
-        console.error(error);
-        // Handle error, e.g., show an error message to the user
-      }
-    };
-
-    fetchPostInfo();
-  }, [id]);
-
-  if (!postInfo) {
-    return <p>Loading...</p>;
-  }
-
-  // Move the formattedDate assignment inside the if block
-  const formattedDate = formatISO9075(new Date(postInfo.createdAt));
+  if (!postInfo) return null;
 
   return (
-    <div className="max-w-6xl mx-auto my-8">
-      <img
-        className="w-full h-96 object-cover object-center mb-8 rounded-lg shadow-lg"
-        alt="featured"
-        src={`http://localhost:4000/${postInfo.cover}`}
-      />
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-4xl font-bold">{postInfo.title}</h1>
-          <div className="text-gray-600 text-sm">
-            <p>By {postInfo.author.username}</p>
-            <time>{formattedDate}</time>
+    <div className="post-page max-w-5xl mx-auto px-4 py-8 bg-white shadow-lg rounded-lg">
+      <div className="flex  flex-col items-center">
+        <h1 className="text-3xl font-bold mb-4">{postInfo.title}</h1>
+        <time className="text-gray-600 mb-2">
+          {formatISO9075(new Date(postInfo.createdAt))}
+        </time>
+        <div className="text-gray-700 mb-4">by @{postInfo.author.username}</div>
+        {userInfo.id === postInfo.author._id && (
+          <div className="edit-row">
+            <Link
+              to={`/edit/${postInfo._id}`}
+              className="bg-blue-500 text-white m-3 w-[100px] py-2 px-4 rounded-lg flex items-center transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-6 h-6 mr-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                />
+              </svg>
+              Edit
+            </Link>
           </div>
-
-          <Link
-            to={`/edit/${postInfo._id}`}
-            className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
-          >
-            Edit
-          </Link>
-        </div>
-        <p className="text-gray-700 mb-6">{postInfo.summary}</p>
-        <div
-          className="prose max-w-full"
-          dangerouslySetInnerHTML={{ __html: postInfo.content }}
-        />
-        {/* Add more details as needed */}
+        )}
       </div>
+      <div className="image mb-4">
+        <img
+          src={`http://localhost:4000/${postInfo.cover}`}
+          alt=""
+          className="w-full h-auto rounded-lg"
+        />
+      </div>
+      <div
+        className="content text-gray-800"
+        dangerouslySetInnerHTML={{ __html: postInfo.content }}
+      />
     </div>
   );
 }
