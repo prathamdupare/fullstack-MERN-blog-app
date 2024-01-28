@@ -1,7 +1,7 @@
 # fullstack-MERN-blog-app
 
 # Blog App
-
+[showcase](showcase.jpg)
 Welcome to the Blog App, a simple full-stack application built using the MERN (MongoDB, Express.js, React, Node.js) stack. This application allows users to register, log in, create, edit, and view blog posts.
 
 ## Getting Started
