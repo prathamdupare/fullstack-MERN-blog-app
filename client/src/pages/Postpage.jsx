@@ -49,11 +49,11 @@ export default function PostPage() {
           </div>
         )}
       </div>
-      <div className="image mb-4">
+      <div className="image flex items-center justify-center mb-4">
         <img
           src={`http://localhost:4000/${postInfo.cover}`}
           alt=""
-          className="w-full h-auto rounded-lg"
+          className="w-3/4 h-auto rounded-lg"
         />
       </div>
       <div
