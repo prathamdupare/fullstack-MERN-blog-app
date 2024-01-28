@@ -23,7 +23,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 try {
   mongoose
     .connect(
-      "mongodb+srv://blog:blog@cluster0.4c3pw73.mongodb.net/?retryWrites=true&w=majority",
+      "", // put mongodb database string here.
     )
     .then(() => {
       console.log("Connected to db");
