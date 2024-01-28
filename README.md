@@ -1,6 +1,5 @@
-# fullstack-MERN-blog-app
+# MERN Blog App
 
-# Blog App
 ![showcase](showcase.jpg)
 
 Welcome to the Blog App, a simple full-stack application built using the MERN (MongoDB, Express.js, React, Node.js) stack. This application allows users to register, log in, create, edit, and view blog posts.
@@ -21,33 +20,33 @@ Make sure you have the following installed on your machine:
 
 1. Clone the repository:
 
-    ```bash
-    git clone <repository-url>
-    ```
+   ```bash
+   git clone <repository-url>
+   ```
 
 2. Navigate to the client directory:
 
-    ```bash
-    cd client
-    ```
+   ```bash
+   cd client
+   ```
 
 3. Install client dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 4. Navigate to the api directory:
 
-    ```bash
-    cd ../api
-    ```
+   ```bash
+   cd ../api
+   ```
 
 5. Install server dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 ### Configuration
 
@@ -55,31 +54,31 @@ Make sure you have the following installed on your machine:
 
 2. Set the client origin in `api/index.js` for CORS:
 
-    ```javascript
-    app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-    ```
+   ```javascript
+   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+   ```
 
 ### Running the App
 
 1. Start the client:
 
-    ```bash
-    cd ../client
-    npm start
-    ```
+   ```bash
+   cd ../client
+   npm start
+   ```
 
 2. Start the backend:
 
-    ```bash
-    cd ../api
-    node index.js
-    ```
+   ```bash
+   cd ../api
+   node index.js
+   ```
 
    Or using nodemon:
 
-    ```bash
-    nodemon index.js
-    ```
+   ```bash
+   nodemon index.js
+   ```
 
 3. Open your browser and go to [http://localhost:3000](http://localhost:3000) to access the Blog App.
 
@@ -105,3 +104,4 @@ Make sure you have the following installed on your machine:
 ├── client
 │   ├── ...
 │
+```
